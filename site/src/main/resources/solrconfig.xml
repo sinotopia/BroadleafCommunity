@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <config>
     <luceneMatchVersion>4.10.3</luceneMatchVersion>
-    <directoryFactory name="DirectoryFactory" class="${solr.directoryFactory:solr.StandardDirectoryFactory}" />
-    <updateHandler class="solr.DirectUpdateHandler2" />
+    <directoryFactory name="DirectoryFactory" class="${solr.directoryFactory:solr.StandardDirectoryFactory}"/>
+    <updateHandler class="solr.DirectUpdateHandler2"/>
 
     <query>
         <maxBooleanClauses>1024</maxBooleanClauses>
 
-        <filterCache class="solr.FastLRUCache" size="512" initialSize="512" autowarmCount="0" />
-        <queryResultCache class="solr.LRUCache" size="512" initialSize="512" autowarmCount="0" />
-        <documentCache class="solr.LRUCache" size="512" initialSize="512" autowarmCount="0" />
-        <cache name="perSegFilter" class="solr.search.LRUCache" size="10" initialSize="0" autowarmCount="10" 
-                regenerator="solr.NoOpRegenerator" />
+        <filterCache class="solr.FastLRUCache" size="512" initialSize="512" autowarmCount="0"/>
+        <queryResultCache class="solr.LRUCache" size="512" initialSize="512" autowarmCount="0"/>
+        <documentCache class="solr.LRUCache" size="512" initialSize="512" autowarmCount="0"/>
+        <cache name="perSegFilter" class="solr.search.LRUCache" size="10" initialSize="0" autowarmCount="10"
+               regenerator="solr.NoOpRegenerator"/>
 
         <enableLazyFieldLoading>true</enableLazyFieldLoading>
 
         <queryResultWindowSize>20</queryResultWindowSize>
         <queryResultMaxDocsCached>200</queryResultMaxDocsCached>
 
-        <listener event="newSearcher" class="solr.QuerySenderListener" />
+        <listener event="newSearcher" class="solr.QuerySenderListener"/>
         <listener event="firstSearcher" class="solr.QuerySenderListener">
             <arr name="queries">
                 <lst>
@@ -33,8 +33,8 @@
 
     <requestDispatcher handleSelect="false">
         <requestParsers enableRemoteStreaming="true" multipartUploadLimitInKB="2048000" formdataUploadLimitInKB="2048"
-                    addHttpRequestToContext="false"/>
-        <httpCaching never304="true" />
+                        addHttpRequestToContext="false"/>
+        <httpCaching never304="true"/>
     </requestDispatcher>
 
     <requestHandler name="/select" class="solr.SearchHandler">

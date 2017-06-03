@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app
-    version="3.0"
-    xmlns="http://java.sun.com/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+        version="3.0"
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
          http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
-    <display-name>mycompany</display-name>
+    <display-name>sinotopia</display-name>
 
     <context-param>
         <param-name>webAppRootKey</param-name>
@@ -35,11 +35,11 @@
         <param-value>forceFlush</param-value>
     </context-param>
 
-    <absolute-ordering />
-    
+    <absolute-ordering/>
+
     <listener>
         <listener-class>
-             org.springframework.web.context.request.RequestContextListener
+            org.springframework.web.context.request.RequestContextListener
         </listener-class>
     </listener>
 
@@ -60,7 +60,7 @@
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    
+
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -84,16 +84,16 @@
     <listener>
         <listener-class>org.broadleafcommerce.common.web.extensibility.MergeContextLoader</listener-class>
     </listener>
-    
+
     <listener>
         <listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
     </listener>
-    
+
     <!-- Note: The applicationContext-servlet-cms-contentClient.xml file is used to load static assets
          from the Broadleaf CMS such as images. It will match on any URL that contains the static asset
          prefix URL in any depth of it. -->
     <servlet>
-        <servlet-name>mycompany</servlet-name>
+        <servlet-name>sinotopia</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
@@ -105,19 +105,19 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    
+
     <servlet-mapping>
-        <servlet-name>mycompany</servlet-name>
+        <servlet-name>sinotopia</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-    
+
     <!-- The RESTApiServlet can be disabled, but doesn't have to be. It will throw an exception if 
          it is accessed when no endpoints have been registered via Spring. Add /WEB-INF/applicationContext-rest-api.xml 
          to the merge patchConfigLocation ABOVE applicationContext-security.xml to activate and begin using REST services. 
          Alternately, this servlet and servlet mapping can be commented out entirely. -->
     <servlet>
-    	<servlet-name>RESTApiServlet</servlet-name>
-    	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <servlet-name>RESTApiServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextClass</param-name>
             <param-value>
@@ -127,7 +127,7 @@
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>
-                com.mycompany.api.RestApiMvcConfiguration
+                com.sinotopia.api.RestApiMvcConfiguration
             </param-value>
         </init-param>
         <init-param>
@@ -135,17 +135,17 @@
             <param-value>true</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
-	</servlet>
+    </servlet>
 
-	<servlet-mapping>
-    	<servlet-name>RESTApiServlet</servlet-name>
-    	<url-pattern>/api/v1/*</url-pattern>
-	</servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RESTApiServlet</servlet-name>
+        <url-pattern>/api/v1/*</url-pattern>
+    </servlet-mapping>
 
     <env-entry>
         <env-entry-name>appName</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
         <env-entry-value>mycompanySite</env-entry-value>
     </env-entry>
-    
+
 </web-app>

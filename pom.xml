@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.mycompany-community</groupId>
-    <artifactId>ecommerce-website</artifactId>
+    <groupId>com.sinotopia-community</groupId>
+    <artifactId>sinotopia-ecommerce</artifactId>
     <version>5.1</version>
     <packaging>pom</packaging>
-    <name>ecommerce</name>
+    <name>sinotopia-ecommerce</name>
     <url>http://www.blc-archetype.com</url>
     <properties>
         <blc.version>5.1.2-GA</blc.version>
@@ -22,17 +22,29 @@
         <tomcat.conf.dir.name>tomcat-server-conf</tomcat.conf.dir.name>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <description>My Company's eCommerce Website</description>
+    <description>sinotopia's eCommerce Website</description>
     <repositories>
         <repository>
-            <id>public snapshots</id>
-            <name>public snapshots</name>
+            <id>blc-snapshots</id>
+            <name>blc-snapshots</name>
             <url>http://nexus.broadleafcommerce.org/nexus/content/groups/community-snapshots/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
         <repository>
-            <id>public releases</id>
-            <name>public releases</name>
+            <id>blc-releases</id>
+            <name>blc-releases</name>
             <url>http://nexus.broadleafcommerce.org/nexus/content/groups/community-releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
     </repositories>
     <build>
@@ -189,7 +201,8 @@
                     <artifactId>tomcat7-maven-plugin</artifactId>
                     <version>2.2</version>
                     <configuration>
-                        <additionalConfigFilesDir>${project.build.directory}/${tomcat.conf.dir.name}</additionalConfigFilesDir>
+                        <additionalConfigFilesDir>${project.build.directory}/${tomcat.conf.dir.name}
+                        </additionalConfigFilesDir>
                         <!-- See the configuration in the keytool-maven-plugin -->
                         <keystorePass>broadleaf</keystorePass>
                         <keystoreFile>${webappDirectory}/WEB-INF/blc-example.keystore</keystoreFile>
@@ -200,11 +213,16 @@
                         <path>${path}</path>
                     </configuration>
                     <dependencies>
+                        <!--<dependency>-->
+                        <!--<groupId>org.hsqldb</groupId>-->
+                        <!--<artifactId>hsqldb</artifactId>-->
+                        <!--<version>${hsqldb.version}</version>-->
+                        <!--<type>jar</type>-->
+                        <!--</dependency>-->
                         <dependency>
-                            <groupId>org.hsqldb</groupId>
-                            <artifactId>hsqldb</artifactId>
-                            <version>${hsqldb.version}</version>
-                            <type>jar</type>
+                            <groupId>mysql</groupId>
+                            <artifactId>mysql-connector-java</artifactId>
+                            <version>5.1.26</version>
                         </dependency>
                         <dependency>
                             <groupId>org.apache.tomcat</groupId>
@@ -225,56 +243,58 @@
                     <artifactId>maven-antrun-plugin</artifactId>
                     <version>1.8</version>
                     <executions>
-                        <execution>
-                            <id>hsqldb-start</id>
-                            <configuration>
-                                <target>
-                                    <echo message="Starting HSQL Database..." />
-                                    <java fork="true" spawn="true" classname="org.hsqldb.Server" classpathref="maven.plugin.classpath">
-                                        <arg  line="-database.0 file:${basedir}/../data/broadleaf -dbname.0 broadleaf"/>
-                                    </java>
-                                    <echo message="Database started succcessfully" />
-                                </target>
-                            </configuration>
-                            <goals>
-                                <goal>run</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>hsqldb-stop</id>
-                            <configuration>
-                                <target>
-                                    <echo message="Stopping HSQL database..." />
-                                    <sql
-                                        autocommit="true"
-                                        print="true"
-                                        classpathref="maven.plugin.classpath"
-                                        driver="org.hsqldb.jdbcDriver"
-                                        url="jdbc:hsqldb:hsql://localhost/broadleaf;ifexists=true"
-                                        userid="sa"
-                                        password="">
-                                        <transaction>SHUTDOWN</transaction>
-                                    </sql>
-                                    <echo message="Database stopped successfully" />
-                                </target>
-                            </configuration>
-                        </execution>
+                        <!--
+                        <execution>-->
+                        <!--<id>hsqldb-start</id>-->
+                        <!--<configuration>-->
+                        <!--<target>-->
+                        <!--<echo message="Starting HSQL Database..."/>-->
+                        <!--<java fork="true" spawn="true" classname="org.hsqldb.Server"-->
+                        <!--classpathref="maven.plugin.classpath">-->
+                        <!--<arg line="-database.0 file:${basedir}/../data/broadleaf -dbname.0 broadleaf"/>-->
+                        <!--</java>-->
+                        <!--<echo message="Database started succcessfully"/>-->
+                        <!--</target>-->
+                        <!--</configuration>-->
+                        <!--<goals>-->
+                        <!--<goal>run</goal>-->
+                        <!--</goals>-->
+                        <!--</execution>-->
+                        <!--<execution>-->
+                        <!--<id>hsqldb-stop</id>-->
+                        <!--<configuration>-->
+                        <!--<target>-->
+                        <!--<echo message="Stopping HSQL database..."/>-->
+                        <!--<sql-->
+                        <!--autocommit="true"-->
+                        <!--print="true"-->
+                        <!--classpathref="maven.plugin.classpath"-->
+                        <!--driver="org.hsqldb.jdbcDriver"-->
+                        <!--url="jdbc:hsqldb:hsql://localhost/broadleaf;ifexists=true"-->
+                        <!--userid="sa"-->
+                        <!--password="">-->
+                        <!--<transaction>SHUTDOWN</transaction>-->
+                        <!--</sql>-->
+                        <!--<echo message="Database stopped successfully"/>-->
+                        <!--</target>-->
+                        <!--</configuration>-->
+                        <!--</execution>-->
                         <execution>
                             <id>change-identifier</id>
                             <configuration>
                                 <target>
-                                    <ant antfile="build.xml" />
+                                    <ant antfile="build.xml"/>
                                 </target>
                             </configuration>
                         </execution>
                     </executions>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.hsqldb</groupId>
-                            <artifactId>hsqldb</artifactId>
-                            <version>${hsqldb.version}</version>
-                        </dependency>
-                    </dependencies>
+                    <!--<dependencies>-->
+                    <!--<dependency>-->
+                    <!--<groupId>org.hsqldb</groupId>-->
+                    <!--<artifactId>hsqldb</artifactId>-->
+                    <!--<version>${hsqldb.version}</version>-->
+                    <!--</dependency>-->
+                    <!--</dependencies>-->
                 </plugin>
 
                 <plugin>
@@ -333,7 +353,7 @@
                                                 </goals>
                                             </pluginExecutionFilter>
                                             <action>
-                                                <ignore />
+                                                <ignore/>
                                             </action>
                                         </pluginExecution>
                                         <pluginExecution>
@@ -346,7 +366,7 @@
                                                 </goals>
                                             </pluginExecutionFilter>
                                             <action>
-                                                <ignore />
+                                                <ignore/>
                                             </action>
                                         </pluginExecution>
                                         <pluginExecution>
@@ -367,7 +387,7 @@
                                                 </goals>
                                             </pluginExecutionFilter>
                                             <action>
-                                                <ignore />
+                                                <ignore/>
                                             </action>
                                         </pluginExecution>
                                         <pluginExecution>
@@ -387,7 +407,7 @@
                                                 </goals>
                                             </pluginExecutionFilter>
                                             <action>
-                                                <ignore />
+                                                <ignore/>
                                             </action>
                                         </pluginExecution>
                                     </pluginExecutions>
